@@ -1,14 +1,14 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   def index
-    @pagy, @tasks = pagy(Task.all, items:10)
+   @pagy, @tasks=pagy(Task.all, items:10)
   end
   
   def show
   end
   
    def new
-    @task = Task.new
+    @task=Task.new
    end
    
   def create
@@ -19,7 +19,7 @@ class TasksController < ApplicationController
       redirect_to @task
      else
       flash.now[:danger] = 'Task が投稿されませんでした'
-      render :new
+      render:new
      end
   end
    
@@ -33,7 +33,7 @@ class TasksController < ApplicationController
       redirect_to @task
     else
       flash.now[:danger] = 'Tasks は更新されませんでした'
-      render :edit
+      render:edit
     end
    end
    
@@ -47,7 +47,7 @@ class TasksController < ApplicationController
  private
  
  def set_task
-   @task = Task.find(params[:id])
+   @task=Task.find(params[:id])
  end
  
  def task_params
