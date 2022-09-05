@@ -5,8 +5,6 @@ Rails.application.routes.draw do
   get 'users/show'
   get 'users/new'
   get 'users/create'
-  get 'users/new'
-  get 'users/create'
   
   root to: 'tasks#index'
   

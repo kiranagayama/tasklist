@@ -1,14 +1,13 @@
 class TasksController < ApplicationController
  before_action :require_user_logged_in
- before_action :correct_user, only: [:destroy]
+ before_action :correct_user, only: [:destroy, :show]
  before_action :set_task, only: [:show, :edit, :update, :destroy]
  
- def index
-   if logged_in?
-      @task = current_user.tasks.build  # form_with 用
-      @pagy, @tasks = pagy(current_user.tasks.order(:id))
-   end
-   
+  def index
+    @task = current_user.tasks.build  # form_with 用
+    @pagy, @task = pagy(current_user.tasks.order(:id))
+  end
+  
   def show
   end
   
@@ -17,14 +16,14 @@ class TasksController < ApplicationController
    end
    
   def create
-   @task = current_user.tasks.build(task_params)
+    @task = current_user.tasks.build(task_params)
     #@task=Task.new(task_params)
     
      if @task.save
       flash[:success] = 'Task が正常に投稿されました'
       redirect_to @task
      else
-      @pagy, @task = pagy(current_user.tasks.order(id: :desc))
+      @pagy = pagy(current_user.tasks.order(id: :desc))
       flash.now[:danger] = 'Task が投稿されませんでした'
       render:new
      end
@@ -50,7 +49,6 @@ class TasksController < ApplicationController
     #redirect_back(fallback_location: root_path)
     redirect_to tasks_url
    end
- end
  
  private
  
